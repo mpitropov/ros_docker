@@ -1,0 +1,3 @@
+ros2 pkg create --build-type ament_cmake wheeled_explorer
+
+gz sim skid_steer_mecanum.sdf -v 4
