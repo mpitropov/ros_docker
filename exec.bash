@@ -1,1 +1,1 @@
-docker exec -it robotdocker_container /bin/bash
+docker exec -it ros_docker_container /bin/bash

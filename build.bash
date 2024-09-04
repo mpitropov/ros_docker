@@ -1,1 +1,1 @@
-docker build . -t robotdocker
+docker build . -t ros_docker

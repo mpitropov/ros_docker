@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 # Don't install extra dependencies
 RUN echo 'APT::Install-Suggests "0";' >> /etc/apt/apt.conf.d/00-docker
 RUN echo 'APT::Install-Recommends "0";' >> /etc/apt/apt.conf.d/00-docker
@@ -27,10 +27,13 @@ RUN DEBIAN_FRONTEND=noninteractive \
 
 # Update and ignore prompts
 RUN DEBIAN_FRONTEND=noninteractive \
-  apt-get update && apt-get upgrade
+  apt-get -y update && apt-get -y upgrade
 
 RUN DEBIAN_FRONTEND=noninteractive \
-  apt install -y ros-iron-desktop
+  apt install -y ros-jazzy-desktop ros-dev-tools
+
+RUN DEBIAN_FRONTEND=noninteractive \
+  apt install -y python3-colcon-common-extensions
 
 # Gazebo requirements
 RUN DEBIAN_FRONTEND=noninteractive \
@@ -44,8 +47,11 @@ RUN DEBIAN_FRONTEND=noninteractive \
   && apt-get update \
   && apt-get install -y gz-harmonic
 
-# Clear apt lists now that we installed everything
 RUN DEBIAN_FRONTEND=noninteractive \
-  && rm -rf /var/lib/apt/lists/*
+  apt install -y ros-jazzy-ros-gz
 
-RUN echo "source /opt/ros/iron/setup.bash" >> ~/.bashrc
+# # Clear apt lists now that we installed everything
+# RUN DEBIAN_FRONTEND=noninteractive \
+#   && rm -rf /var/lib/apt/lists/*
+
+RUN echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
